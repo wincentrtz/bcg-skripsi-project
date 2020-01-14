@@ -1,10 +1,10 @@
-package com.binus.skripsi.bcg;
+package com.binus.skripsi.ecg;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BcgApplicationTests {
+class EcgApplicationTests {
 
 	@Test
 	void contextLoads() {
