@@ -12,6 +12,7 @@ public class PusherProperties {
     private String id;
     private String key;
     private String secret;
+    private String cluster;
     private String channel;
     private String event;
 }

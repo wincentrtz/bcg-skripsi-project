@@ -37,6 +37,7 @@ public class ElectrocardiographyServiceImpl implements ElectrocardiographyServic
                 pusherProperties.getKey(),
                 pusherProperties.getSecret()
         );
+        pusher.setCluster(pusherProperties.getCluster());
 
         pusher.trigger(pusherProperties.getChannel(),
                 pusherProperties.getEvent(),
