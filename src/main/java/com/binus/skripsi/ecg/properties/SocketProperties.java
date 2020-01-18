@@ -1,18 +1,18 @@
 package com.binus.skripsi.ecg.properties;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "app.skripsi.ecg.pusher")
+@ConfigurationProperties(value = "app.skripsi.ecg.socket")
 @Data
-public class PusherProperties {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SocketProperties {
 
-    private String id;
-    private String key;
-    private String secret;
-    private String cluster;
-    private String channel;
+    private String url;
     private String event;
 }
