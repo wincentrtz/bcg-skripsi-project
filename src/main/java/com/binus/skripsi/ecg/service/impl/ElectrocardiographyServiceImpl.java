@@ -1,15 +1,20 @@
 package com.binus.skripsi.ecg.service.impl;
 
 import com.binus.skripsi.ecg.model.entity.Electrocardiography;
-import com.binus.skripsi.ecg.properties.PusherProperties;
+import com.binus.skripsi.ecg.properties.SocketProperties;
 import com.binus.skripsi.ecg.repository.ElectrocardiographyRepository;
 import com.binus.skripsi.ecg.service.ElectrocardiographyService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pusher.rest.Pusher;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.net.URISyntaxException;
 
 @Service
 @Slf4j
@@ -22,25 +27,26 @@ public class ElectrocardiographyServiceImpl implements ElectrocardiographyServic
     ObjectMapper objectMapper;
 
     @Autowired
-    PusherProperties pusherProperties;
-
-    Pusher pusher;
+    SocketProperties socketProperties;
 
     @Override
-    public void saveElectrocardiographyData(String stringify) throws JsonProcessingException {
+    public void saveElectrocardiographyData(String stringify) throws JsonProcessingException, URISyntaxException, JSONException {
         Electrocardiography electrocardiography = objectMapper.readValue(stringify, Electrocardiography.class);
         electrocardiographyRepository.save(electrocardiography);
         log.info("Successfully Add Data ECG: "+ electrocardiography.getEcgValue());
+        Socket socket = initializeSocketIoInstance();
+        socket.connect();
+        socket.emit(socketProperties.getEvent(), constructEcgSocketEventValue(electrocardiography));
+    }
 
-        pusher = new Pusher(
-                pusherProperties.getId(),
-                pusherProperties.getKey(),
-                pusherProperties.getSecret()
-        );
-        pusher.setCluster(pusherProperties.getCluster());
+    private Socket initializeSocketIoInstance() throws URISyntaxException {
+        return IO.socket(socketProperties.getUrl());
+    }
 
-        pusher.trigger(pusherProperties.getChannel(),
-                pusherProperties.getEvent(),
-                electrocardiography);
+    private JSONObject constructEcgSocketEventValue(Electrocardiography electrocardiography) throws JSONException {
+        JSONObject eventObject = new JSONObject();
+        eventObject.put("ecgValue", electrocardiography.getEcgValue());
+
+        return eventObject;
     }
 }
