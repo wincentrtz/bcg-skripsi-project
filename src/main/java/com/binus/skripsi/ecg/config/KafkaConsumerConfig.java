@@ -1,7 +1,9 @@
 package com.binus.skripsi.ecg.config;
 
+import com.binus.skripsi.ecg.properties.KafkaProperties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -14,15 +16,18 @@ import java.util.Map;
 @Configuration
 public class KafkaConsumerConfig {
 
+    @Autowired
+    KafkaProperties kafkaProperties;
+
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "localhost:9092");
+                kafkaProperties.getBootstrapServers());
         props.put(
                 ConsumerConfig.GROUP_ID_CONFIG,
-                "com.binus.skripsi.ecg");
+                kafkaProperties.getGroupId());
         props.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
