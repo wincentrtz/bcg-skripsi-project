@@ -23,7 +23,7 @@ public class ElectrocardiographyListener {
     ObjectMapper objectMapper;
 
     @KafkaListener(topics = "ecg")
-    public void electrocardiographyListener(ConsumerRecord<String, Object> record) throws JsonProcessingException, URISyntaxException, JSONException, Exception {
+    public void electrocardiographyListener(ConsumerRecord<String, Object> record) throws Exception {
         electrocardiographyService.saveElectrocardiographyData(record.value().toString());
     }
 }

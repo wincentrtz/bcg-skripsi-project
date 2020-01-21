@@ -6,11 +6,9 @@ import com.binus.skripsi.ecg.properties.SocketProperties;
 import com.binus.skripsi.ecg.repository.ElectrocardiographyRepository;
 import com.binus.skripsi.ecg.repository.PatientRepository;
 import com.binus.skripsi.ecg.service.ElectrocardiographyService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.socket.client.IO;
 import io.socket.client.Socket;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,9 +35,9 @@ public class ElectrocardiographyServiceImpl implements ElectrocardiographyServic
     SocketProperties socketProperties;
 
     @Override
-    public void saveElectrocardiographyData(String stringify) throws JsonProcessingException, URISyntaxException, JSONException, Exception {
+    public void saveElectrocardiographyData(String stringify) throws Exception {
         Electrocardiography electrocardiography = objectMapper.readValue(stringify, Electrocardiography.class);
-        electrocardiography.auditedInputTime(Instant.now());
+        electrocardiography.setAuditedInputTime(Instant.now());
 
         Patient patient = patientRepository.findBySensorToken(electrocardiography.getSensorToken())
                 .orElseThrow(() -> new Exception("Patient with sensor token [" + electrocardiography.getSensorToken() + "] not found"));
