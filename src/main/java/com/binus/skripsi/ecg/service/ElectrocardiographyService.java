@@ -7,5 +7,5 @@ import java.net.URISyntaxException;
 
 public interface ElectrocardiographyService {
 
-    void saveElectrocardiographyData(String stringify) throws JsonProcessingException, URISyntaxException, JSONException;
+    void saveElectrocardiographyData(String stringify) throws JsonProcessingException, URISyntaxException, JSONException, Exception;
 }
