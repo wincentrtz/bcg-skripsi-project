@@ -20,22 +20,18 @@ public class Electrocardiography {
     @SequenceGenerator(name = "hibernateSequence")
     private Long id;
 
-    @Column(name = "reference_id")
+    @Column(name = "reference_id", nullable = false)
     private Long referenceId;
 
-    @NonNull
-    @Column(name = "jhi_value")
+    @Column(name = "jhi_value", nullable = false)
     private Double value;
 
-    @NonNull
-    @Column(name = "input_time")
+    @Column(name = "input_time", nullable = false)
     private Instant inputTime;
 
-    @NonNull
-    @Column(name = "audited_input_time")
+    @Column(name = "audited_input_time", nullable = false)
     private Instant auditedInputTime;
 
-    @NonNull
-    @Column(name = "sensor_token")
+    @Column(name = "sensor_token", nullable = false)
     private String sensorToken;
 }
