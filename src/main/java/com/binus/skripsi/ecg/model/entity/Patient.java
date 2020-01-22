@@ -2,11 +2,9 @@ package com.binus.skripsi.ecg.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.binus.skripsi.ecg.model.entity.enumeration.Gender;
-import com.binus.skripsi.ecg.model.entity.Region;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.Instant;
 
 @Data

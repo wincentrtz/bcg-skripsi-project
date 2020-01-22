@@ -1,15 +1,11 @@
 package com.binus.skripsi.ecg.model.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +13,7 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "region")
-public class Region implements Serializable {
+public class Region {
 
     private static final long serialVersionUID = 1L;
     
@@ -26,7 +22,6 @@ public class Region implements Serializable {
     @SequenceGenerator(name = "hibernateSequence")
     private Long id;
 
-    @NotNull
     @Column(name = "region_name", nullable = false, unique = true)
     private String regionName;
 }
