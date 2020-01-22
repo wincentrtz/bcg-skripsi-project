@@ -56,7 +56,7 @@ public class ElectrocardiographyServiceImpl implements ElectrocardiographyServic
 
     private JSONObject constructEcgSocketEventValue(Electrocardiography electrocardiography) throws JSONException {
         JSONObject eventObject = new JSONObject();
-        eventObject.put("ecgValue", electrocardiography.toString());
+        eventObject.put("ecgValue", electrocardiography.getValue());
 
         return eventObject;
     }

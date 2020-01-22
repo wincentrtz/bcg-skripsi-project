@@ -15,7 +15,7 @@ import java.time.Instant;
 @Builder
 @Entity
 @Table(name = "patient")
-public class Patient implements Serializable {
+public class Patient {
 
     private static final long serialVersionUID = 1L;
 
